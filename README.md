@@ -1,0 +1,2 @@
+# FuzzyAdaptiveBinarization
+Fuzzy Adaptive Binarization implementations

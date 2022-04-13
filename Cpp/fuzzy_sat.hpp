@@ -35,5 +35,4 @@ class FuzzySat {
   cv::Mat1f S;
   cv::Mat1f S_c;
   cv::Mat1f out_img;
-  cv::Mat1f th_mat;
 };

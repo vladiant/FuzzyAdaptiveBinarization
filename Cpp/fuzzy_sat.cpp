@@ -4,8 +4,7 @@ FuzzySat::FuzzySat(const cv::Mat1f& input_image)
     : image{input_image},
       S{input_image.size(), 0.0f},
       S_c{input_image.size(), 0.0f},
-      out_img{input_image.size(), 0.0f},
-      th_mat{input_image.size(), 0.0f} {}
+      out_img{input_image.size(), 0.0f} {}
 
 void FuzzySat::compute_sat() {
   for (int row = 0; row < image.rows; row++) {
@@ -164,7 +163,6 @@ void FuzzySat::adaptive_thresh_bradley(int a1, float T) {
       const int count = (y1 - y0) * (x1 - x0);
       const float sum_ = S.at<float>(y1, x1) - S.at<float>(y0, x1) -
                          S.at<float>(y1, x0) + S.at<float>(y0, x0);
-      th_mat.at<float>(row, col) = sum_ / count;
 
       out_img.at<float>(row, col) =
           image.at<float>(row, col) * count >= sum_ * (1.0 - T);
@@ -185,7 +183,6 @@ void FuzzySat::adaptive_thresh_fuzzy(int a1, float T) {
       const int count = (y1 - y0) * (x1 - x0);
       const float sum_ = S_c.at<float>(y1, x1) - S_c.at<float>(y0, x1) -
                          S_c.at<float>(y1, x0) + S_c.at<float>(y0, x0);
-      th_mat.at<float>(row, col) = sum_ / count;
 
       out_img.at<float>(row, col) =
           image.at<float>(row, col) * count >= sum_ * (1.0 - T);

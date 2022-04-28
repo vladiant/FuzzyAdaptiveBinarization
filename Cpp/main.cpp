@@ -23,6 +23,11 @@ void update(int, void* data) {
   // fuzzy_sat.adaptive_thresh_bradley(16, 0.095);
   fuzzy_sat.adaptive_thresh_fuzzy(16, 0.095);
 
+  // Write intermediate images for comparison
+  cv::imwrite("test_s_c.tiff", fuzzy_sat.get_S_c());
+  cv::imwrite("test_s.tiff", fuzzy_sat.get_S());
+  cv::imwrite("test_fth.tiff", fuzzy_sat.get_FTh());
+
   // cv::imshow("test", fuzzy_sat.get_S_c() / 10000.0);
   // cv::imshow("test", fuzzy_sat.get_S() / 2055.0);
 

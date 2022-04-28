@@ -253,6 +253,11 @@ int_img.adaptive_thresh_fuzzy(16, 0.095)
 
 out_img = int_img.get_FTh()
 
+# Write intermediate images for comparison
+cv2.imwrite("test_s_c.tiff", int_img.get_S_c())
+cv2.imwrite("test_s.tiff", int_img.get_S())
+cv2.imwrite("test_fth.tiff", int_img.get_FTh())
+
 cv2.imshow("img", img)
 cv2.imshow("out", out_img)
 cv2.waitKey(0)

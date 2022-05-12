@@ -44,7 +44,7 @@ class fuzzy_sat:
                         + self.S[row - 1][col]
                         - self.S[row - 1][col - 1]
                     )
-                    if self.S[row][col - 1] > self.S[row - 1][col]:
+                    if self.S[row][col - 1] >= self.S[row - 1][col]:
                         ov = np.asarray(
                             [
                                 0,
@@ -73,7 +73,7 @@ class fuzzy_sat:
                     self.S_c[row][col] = ov[1] + ov[2] * 0.50
                 elif col > 0:
                     self.S[row][col] = self.image[row][col] + self.S[row][col - 1]
-                    ov = np.asarray([0, self.S[row - 1][col], self.S[row][col]])
+                    ov = np.asarray([0, self.S[row][col - 1], self.S[row][col]])
                     self.S_c[row][col] = ov[1] + ov[2] * 0.50
                 else:
                     self.S[row][col] = self.image[row][col]
@@ -89,7 +89,7 @@ class fuzzy_sat:
                         + self.S[row - 1][col]
                         - self.S[row - 1][col - 1]
                     )
-                    if self.S[row][col - 1] > self.S[row - 1][col]:
+                    if self.S[row][col - 1] >= self.S[row - 1][col]:
                         ov = np.asarray(
                             [
                                 0,
@@ -121,7 +121,7 @@ class fuzzy_sat:
                     self.S_c[row][col] = (ov[1] - ov[0]) + (ov[2] - ov[1]) * 0.5
                 elif col > 0:
                     self.S[row][col] = self.image[row][col] + self.S[row][col - 1]
-                    ov = np.asarray([0, self.S[row - 1][col], self.S[row][col]])
+                    ov = np.asarray([0, self.S[row][col - 1], self.S[row][col]])
                     self.S_c[row][col] = (ov[1] - ov[0]) + (ov[2] - ov[1]) * 0.5
                 else:
                     self.S[row][col] = self.image[row][col]
@@ -137,7 +137,7 @@ class fuzzy_sat:
                         + self.S[row - 1][col]
                         - self.S[row - 1][col - 1]
                     )
-                    if self.S[row][col - 1] > self.S[row - 1][col]:
+                    if self.S[row][col - 1] >= self.S[row - 1][col]:
                         ov = np.asarray(
                             [
                                 0,
@@ -171,7 +171,7 @@ class fuzzy_sat:
                     ) / (ov[2] + 0.5 - (ov[2] * 0.5))
                 elif col > 0:
                     self.S[row][col] = self.image[row][col] + self.S[row][col - 1]
-                    ov = np.asarray([0, self.S[row - 1][col], self.S[row][col]])
+                    ov = np.asarray([0, self.S[row][col - 1], self.S[row][col]])
                     self.S_c[row][col] = (ov[1] - ov[0]) / (ov[1] + 1 - (ov[1])) + (
                         ov[2] - ov[1]
                     ) / (ov[2] + 0.5 - (ov[2] * 0.5))

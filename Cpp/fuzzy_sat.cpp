@@ -34,7 +34,7 @@ void FuzzySat::compute_sat_cf12() {
             image.at<float>(row, col) + S.at<float>(row, col - 1) +
             S.at<float>(row - 1, col) - S.at<float>(row - 1, col - 1);
         float ov1, ov2, ov3, ov4;
-        if (S.at<float>(row, col - 1) > S.at<float>(row - 1, col)) {
+        if (S.at<float>(row, col - 1) >= S.at<float>(row - 1, col)) {
           ov1 = S.at<float>(row - 1, col - 1);
           ov2 = S.at<float>(row - 1, col);
           ov3 = S.at<float>(row, col - 1);
@@ -74,7 +74,7 @@ void FuzzySat::compute_sat_cho() {
             image.at<float>(row, col) + S.at<float>(row, col - 1) +
             S.at<float>(row - 1, col) - S.at<float>(row - 1, col - 1);
         float ov1, ov2, ov3, ov4;
-        if (S.at<float>(row, col - 1) > S.at<float>(row - 1, col)) {
+        if (S.at<float>(row, col - 1) >= S.at<float>(row - 1, col)) {
           ov1 = S.at<float>(row - 1, col - 1);
           ov2 = S.at<float>(row - 1, col);
           ov3 = S.at<float>(row, col - 1);
@@ -115,7 +115,7 @@ void FuzzySat::compute_sat_ham() {
             image.at<float>(row, col) + S.at<float>(row, col - 1) +
             S.at<float>(row - 1, col) - S.at<float>(row - 1, col - 1);
         float ov1, ov2, ov3, ov4;
-        if (S.at<float>(row, col - 1) > S.at<float>(row - 1, col)) {
+        if (S.at<float>(row, col - 1) >= S.at<float>(row - 1, col)) {
           ov1 = S.at<float>(row - 1, col - 1);
           ov2 = S.at<float>(row - 1, col);
           ov3 = S.at<float>(row, col - 1);
@@ -127,9 +127,9 @@ void FuzzySat::compute_sat_ham() {
           ov4 = S.at<float>(row, col);
         }
         S_c.at<float>(row, col) = ov1 +
-                                  (ov2 - ov1) / (ov2 + 0.75 - (ov2 * 0.75)) +
-                                  (ov3 - ov2) / (ov3 + 0.50) +
-                                  (ov4 - ov3) / (ov4 + 0.25 - (ov4 * 0.25));
+                                  (ov2 * 0.75) / (ov2 + 0.75 - (ov2 * 0.75)) +
+                                  (ov3 * 0.50) / (ov3 + 0.50 - (ov3 * 0.50)) +
+                                  (ov4 * 0.25) / (ov4 + 0.25 - (ov4 * 0.25));
       } else if (row > 0) {
         S.at<float>(row, col) =
             image.at<float>(row, col) + S.at<float>(row - 1, col);
@@ -155,9 +155,9 @@ void FuzzySat::adaptive_thresh_bradley(int a1, float T) {
   for (int row = 0; row < image.rows; row++) {
     for (int col = 0; col < image.cols; col++) {
       // SxS region
-      const int y0 = std::min(row - w_n, 0);
+      const int y0 = std::max(row - w_n, 0);
       const int y1 = std::min(row + w_n, image.rows - 1);
-      const int x0 = std::min(col - w_n, 0);
+      const int x0 = std::max(col - w_n, 0);
       const int x1 = std::min(col + w_n, image.cols - 1);
 
       const int count = (y1 - y0) * (x1 - x0);
@@ -175,9 +175,9 @@ void FuzzySat::adaptive_thresh_fuzzy(int a1, float T) {
   for (int row = 0; row < image.rows; row++) {
     for (int col = 0; col < image.cols; col++) {
       // SxS region
-      const int y0 = std::min(row - w_n, 0);
+      const int y0 = std::max(row - w_n, 0);
       const int y1 = std::min(row + w_n, image.rows - 1);
-      const int x0 = std::min(col - w_n, 0);
+      const int x0 = std::max(col - w_n, 0);
       const int x1 = std::min(col + w_n, image.cols - 1);
 
       const int count = (y1 - y0) * (x1 - x0);

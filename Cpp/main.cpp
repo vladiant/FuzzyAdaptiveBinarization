@@ -16,6 +16,7 @@ void update(int, void* data) {
 
   FuzzySat fuzzy_sat(input_img);
   // fuzzy_sat.compute_sat();
+  // fuzzy_sat.compute_sat_sug();
   // fuzzy_sat.compute_sat_cf12();
   fuzzy_sat.compute_sat_cho();
   // fuzzy_sat.compute_sat_ham();

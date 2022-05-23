@@ -9,6 +9,9 @@ class FuzzySat {
   // Integral image
   void compute_sat();
 
+  // Sugeno integral image
+  void compute_sat_sug();
+
   // CFval 1,2 integral image
   void compute_sat_cf12();
 

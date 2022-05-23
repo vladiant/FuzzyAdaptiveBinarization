@@ -1,5 +1,7 @@
 #include "fuzzy_sat.hpp"
 
+#include <algorithm>
+
 FuzzySat::FuzzySat(const cv::Mat1f& input_image)
     : image{input_image},
       S{input_image.size(), 0.0f},
@@ -21,6 +23,48 @@ void FuzzySat::compute_sat() {
             image.at<float>(row, col) + S.at<float>(row, col - 1);
       } else {
         S.at<float>(row, col) = image.at<float>(row, col);
+      }
+    }
+  }
+}
+
+void FuzzySat::compute_sat_sug() {
+  for (int row = 0; row < image.rows; row++) {
+    for (int col = 0; col < image.cols; col++) {
+      if (row > 0 && col > 0) {
+        S.at<float>(row, col) =
+            image.at<float>(row, col) + S.at<float>(row, col - 1) +
+            S.at<float>(row - 1, col) - S.at<float>(row - 1, col - 1);
+        float ov1, ov2, ov3, ov4;
+        if (S.at<float>(row, col - 1) >= S.at<float>(row - 1, col)) {
+          ov1 = S.at<float>(row - 1, col - 1);
+          ov2 = S.at<float>(row - 1, col);
+          ov3 = S.at<float>(row, col - 1);
+          ov4 = S.at<float>(row, col);
+        } else {
+          ov1 = S.at<float>(row - 1, col - 1);
+          ov2 = S.at<float>(row, col - 1);
+          ov3 = S.at<float>(row - 1, col);
+          ov4 = S.at<float>(row, col);
+        }
+        S_c.at<float>(row, col) =
+            std::max({ov1, std::min(0.75f, ov2), std::min(0.5f, ov3),
+                      std::min(0.25f, ov4)});
+      } else if (row > 0) {
+        S.at<float>(row, col) =
+            image.at<float>(row, col) + S.at<float>(row - 1, col);
+        const float ov1 = S.at<float>(row - 1, col);
+        const float ov2 = S.at<float>(row, col);
+        S_c.at<float>(row, col) = std::max({ov1, std::min(0.5f, ov2)});
+      } else if (col > 0) {
+        S.at<float>(row, col) =
+            image.at<float>(row, col) + S.at<float>(row, col - 1);
+        const float ov1 = S.at<float>(row, col - 1);
+        const float ov2 = S.at<float>(row, col);
+        S_c.at<float>(row, col) = std::max({ov1, std::min(0.5f, ov2)});
+      } else {
+        S.at<float>(row, col) = image.at<float>(row, col);
+        S_c.at<float>(row, col) = image.at<float>(row, col);
       }
     }
   }

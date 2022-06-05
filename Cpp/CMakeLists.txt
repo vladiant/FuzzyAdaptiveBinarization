@@ -6,6 +6,8 @@ find_package(OpenCV REQUIRED)
 
 add_executable(
     ${PROJECT_NAME}
+    compute_utils.hpp
+    compute_utils.cpp
     fuzzy_sat.hpp
     fuzzy_sat.cpp
     main.cpp

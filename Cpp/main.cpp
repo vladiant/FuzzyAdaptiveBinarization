@@ -29,8 +29,8 @@ void update(int, void* data) {
   cv::imwrite("test_s.tiff", fuzzy_sat.get_S());
   cv::imwrite("test_fth.tiff", fuzzy_sat.get_FTh());
 
-  // cv::imshow("test", fuzzy_sat.get_S_c() / 10000.0);
-  // cv::imshow("test", fuzzy_sat.get_S() / 2055.0);
+  // cv::imshow("S_c", fuzzy_sat.get_S_c() / 2048.0);
+  // cv::imshow("S", fuzzy_sat.get_S() / 2048.0);
 
   const auto binarized = fuzzy_sat.get_FTh();
 

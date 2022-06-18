@@ -234,32 +234,33 @@ class fuzzy_sat:
         return self.out_img
 
 
-parser = ap.ArgumentParser()
-parser.add_argument("-i", "--image", help="image filename", required="True")
-args = vars(parser.parse_args())
+if __name__ == "__main__":
+    parser = ap.ArgumentParser()
+    parser.add_argument("-i", "--image", help="image filename", required="True")
+    args = vars(parser.parse_args())
 
-image_path = args["image"]
-img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    image_path = args["image"]
+    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
-int_img = fuzzy_sat(np.asarray(img))
+    int_img = fuzzy_sat(np.asarray(img))
 
-# int_img.compute_sat()
-# int_img.compute_sat_cf12()
-int_img.compute_sat_cho()
-# int_img.compute_sat_ham()
+    # int_img.compute_sat()
+    # int_img.compute_sat_cf12()
+    int_img.compute_sat_cho()
+    # int_img.compute_sat_ham()
 
-# int_img.adaptive_thresh_bradley(16, 0.095)
-int_img.adaptive_thresh_fuzzy(16, 0.095)
+    # int_img.adaptive_thresh_bradley(16, 0.095)
+    int_img.adaptive_thresh_fuzzy(16, 0.095)
 
-out_img = int_img.get_FTh()
+    out_img = int_img.get_FTh()
 
-# Write intermediate images for comparison
-cv2.imwrite("test_s_c.tiff", int_img.get_S_c())
-cv2.imwrite("test_s.tiff", int_img.get_S())
-cv2.imwrite("test_fth.tiff", int_img.get_FTh())
+    # Write intermediate images for comparison
+    cv2.imwrite("test_s_c.tiff", int_img.get_S_c())
+    cv2.imwrite("test_s.tiff", int_img.get_S())
+    cv2.imwrite("test_fth.tiff", int_img.get_FTh())
 
-cv2.imshow("img", img)
-cv2.imshow("out", out_img)
-cv2.waitKey(0)
+    cv2.imshow("img", img)
+    cv2.imshow("out", out_img)
+    cv2.waitKey(0)
 
-cv2.destroyAllWindows()
+    cv2.destroyAllWindows()

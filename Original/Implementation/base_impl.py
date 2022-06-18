@@ -34,6 +34,51 @@ class fuzzy_sat:
                 else:
                     self.S[row][col] = self.image[row][col]
 
+    def compute_sat_sug(self):  # Sugeno integral image
+        for row in range(0, self.height):
+            for col in range(0, self.width):
+                if (row > 0) and (col > 0):
+                    self.S[row][col] = (
+                        self.image[row][col]
+                        + self.S[row][col - 1]
+                        + self.S[row - 1][col]
+                        - self.S[row - 1][col - 1]
+                    )
+                    if self.S[row][col - 1] >= self.S[row - 1][col]:
+                        ov = np.asarray(
+                            [
+                                0,
+                                self.S[row - 1][col - 1],
+                                self.S[row - 1][col],
+                                self.S[row][col - 1],
+                                self.S[row][col],
+                            ]
+                        )
+                    else:
+                        ov = np.asarray(
+                            [
+                                0,
+                                self.S[row - 1][col - 1],
+                                self.S[row][col - 1],
+                                self.S[row - 1][col],
+                                self.S[row][col],
+                            ]
+                        )
+                    self.S_c[row][col] = np.max(
+                        [ov[1], min(ov[2], 0.75), min(ov[3], 0.5), min(ov[4], 0.25)]
+                    )
+                elif row > 0:
+                    self.S[row][col] = self.image[row][col] + self.S[row - 1][col]
+                    ov = np.asarray([0, self.S[row - 1][col], self.S[row][col]])
+                    self.S_c[row][col] = np.max([ov[1], min(ov[2], 0.50)])
+                elif col > 0:
+                    self.S[row][col] = self.image[row][col] + self.S[row][col - 1]
+                    ov = np.asarray([0, self.S[row][col - 1], self.S[row][col]])
+                    self.S_c[row][col] = np.max([ov[1], min(ov[2], 0.50)])
+                else:
+                    self.S[row][col] = self.image[row][col]
+                    self.S_c[row][col] = self.image[row][col]
+
     def compute_sat_cf12(self):  # CFval 1,2 integral image
         for row in range(0, self.height):
             for col in range(0, self.width):

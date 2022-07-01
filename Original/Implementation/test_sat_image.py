@@ -180,4 +180,4 @@ def test_compute_sat_s_image():
     int_img.compute_sat()
 
     test_s = int_img.get_S()
-    assert expected_s == pytest.approx(test_s)
+    np.testing.assert_allclose(expected_s, test_s)

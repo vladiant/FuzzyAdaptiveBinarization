@@ -107,15 +107,6 @@ expected_sug_fuzzy_out = np.array(
 )
 
 
-def test_compute_sat_s_image():
-    int_img = fuzzy_sat(test_image)
-
-    int_img.compute_sat()
-
-    test_s = int_img.get_S()
-    assert expected_s == pytest.approx(test_s)
-
-
 def test_compute_sat_sug_bradley_images():
     int_img = fuzzy_sat(test_image)
 
@@ -125,9 +116,9 @@ def test_compute_sat_sug_bradley_images():
     test_s = int_img.get_S()
     test_s_c = int_img.get_S_c()
     test_out = int_img.get_FTh()
-    assert expected_s == pytest.approx(test_s)
-    assert expected_sug_s_c == pytest.approx(test_s_c)
-    assert test_out == pytest.approx(expected_sug_bradley_out)
+    np.testing.assert_allclose(expected_s, test_s)
+    np.testing.assert_allclose(expected_sug_s_c, test_s_c)
+    np.testing.assert_allclose(test_out, expected_sug_bradley_out)
 
 
 def test_compute_sat_sug_fuzzy_images():
@@ -139,6 +130,6 @@ def test_compute_sat_sug_fuzzy_images():
     test_s = int_img.get_S()
     test_s_c = int_img.get_S_c()
     test_out = int_img.get_FTh()
-    assert expected_s == pytest.approx(test_s)
-    assert expected_sug_s_c == pytest.approx(test_s_c)
-    assert test_out == pytest.approx(expected_sug_fuzzy_out)
+    np.testing.assert_allclose(expected_s, test_s)
+    np.testing.assert_allclose(expected_sug_s_c, test_s_c)
+    np.testing.assert_allclose(test_out, expected_sug_fuzzy_out)

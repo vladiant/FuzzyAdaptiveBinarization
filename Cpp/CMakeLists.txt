@@ -54,3 +54,33 @@ target_link_libraries(
         FabLib
         ${OpenCV_LIBS}
 )
+
+# Tests
+include(CTest)
+
+add_executable(
+    TestFab
+    test/main.cpp
+)
+
+set_target_properties(
+    TestFab
+    PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO
+)
+
+target_include_directories(
+    TestFab
+    PRIVATE
+        test
+)
+
+target_link_libraries(
+    TestFab
+    PRIVATE
+        FabLib
+)
+
+add_test(NAME TestFab COMMAND TestFab)

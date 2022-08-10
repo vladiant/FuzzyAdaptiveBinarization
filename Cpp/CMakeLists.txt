@@ -60,6 +60,11 @@ include(CTest)
 
 add_executable(
     TestFab
+    test/test_data.hpp
+    test/test_data.cpp
+    test/test_utils.hpp
+    test/test_utils.cpp
+    test/test_cf12_images.cpp
     test/main.cpp
 )
 

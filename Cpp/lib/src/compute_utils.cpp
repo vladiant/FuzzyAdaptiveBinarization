@@ -169,9 +169,9 @@ void compute_integral_ham(const cv::Mat1f& image, cv::Mat1f& S,
           ov4 = S.at<float>(row, col);
         }
         S_c.at<float>(row, col) = ov1 +
-                                  (ov2 * 0.75) / (ov2 + 0.75 - (ov2 * 0.75)) +
-                                  (ov3 * 0.50) / (ov3 + 0.50 - (ov3 * 0.50)) +
-                                  (ov4 * 0.25) / (ov4 + 0.25 - (ov4 * 0.25));
+                                  (ov2 - ov1) / (ov2 + 0.75 - (ov2 * 0.75)) +
+                                  (ov3 - ov2) / (ov3 + 0.50) +
+                                  (ov4 - ov3) / (ov4 + 0.25 - (ov4 * 0.25));
       } else if (row > 0) {
         S.at<float>(row, col) =
             image.at<float>(row, col) + S.at<float>(row - 1, col);

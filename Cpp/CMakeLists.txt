@@ -66,6 +66,7 @@ add_executable(
     test/test_utils.cpp
     test/test_cf12_images.cpp
     test/test_cho_images.cpp
+    test/test_ham_images.cpp
     test/main.cpp
 )
 

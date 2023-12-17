@@ -7,7 +7,8 @@ void compare_images(const cv::Mat1f& lhs, const cv::Mat1f& rhs) {
 
   auto it_rhs = rhs.begin();
   auto it_lhs = lhs.begin();
-  for (; it_rhs != rhs.end(); ++it_rhs, ++it_lhs) {
-    REQUIRE(doctest::Approx(*it_rhs) == *it_lhs);
+  size_t index = 0;
+  for (; it_rhs != rhs.end(); ++it_rhs, ++it_lhs, index++) {
+    CHECK_MESSAGE(doctest::Approx(*it_rhs) == *it_lhs, index);
   }
 }

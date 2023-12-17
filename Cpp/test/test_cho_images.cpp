@@ -32,14 +32,18 @@ const cv::Mat1f expected_sug_bradley_out(
              1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0,
              0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0,
              1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0,
-             1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0});
+             //  Python code results
+         //  1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0
+             1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0});
 
 const cv::Mat1f expected_sug_fuzzy_out(
     {8, 8}, {0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0,
              1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0,
              0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0,
              1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0,
-             1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0});
+             //  Python code results
+         //  1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0
+             1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0});
 
 }  // namespace
 
@@ -55,7 +59,7 @@ TEST_CASE("ComputeSatBradley [cho]") {
 
   compare_images(get_expected_s(), test_s);
   compare_images(expected_sug_s_c, test_s_c);
-  // compare_images(test_out, expected_sug_bradley_out);
+  compare_images(test_out, expected_sug_bradley_out);
 }
 
 TEST_CASE("ComputeSatFuzzy [cho]") {
@@ -70,5 +74,5 @@ TEST_CASE("ComputeSatFuzzy [cho]") {
 
   compare_images(get_expected_s(), test_s);
   compare_images(expected_sug_s_c, test_s_c);
-  // compare_images(test_out, expected_sug_fuzzy_out);
+  compare_images(test_out, expected_sug_fuzzy_out);
 }

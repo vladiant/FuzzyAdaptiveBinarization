@@ -23,6 +23,14 @@ set_target_properties(
         VERSION 1.0.0
 )
 
+target_compile_options(
+    FabLib
+    PRIVATE
+        $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX /fp:strict>
+        $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Wpedantic -frounding-math -fsignaling-nans>
+        $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Wpedantic -ffp-model=strict>
+)
+
 target_include_directories(
     FabLib
     PUBLIC
@@ -78,6 +86,14 @@ set_target_properties(
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO
+)
+
+target_compile_options(
+    FabLib
+    PRIVATE
+         $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX /fp:strict>
+         $<$<CXX_COMPILER_ID:GNU>:-Wall -Wextra -Wpedantic -frounding-math -fsignaling-nans>
+         $<$<CXX_COMPILER_ID:Clang>:-Wall -Wextra -Wpedantic -ffp-model=strict>
 )
 
 target_include_directories(

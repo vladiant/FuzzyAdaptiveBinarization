@@ -39,7 +39,9 @@ const cv::Mat1f expected_sug_bradley_out(
              1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0,
              0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0,
              1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0,
-             1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0});
+             //  Python code results
+         //  1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0
+             1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0});
 
 const cv::Mat1f expected_sug_fuzzy_out(
     {8, 8}, {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0,
@@ -62,7 +64,7 @@ TEST_CASE("ComputeSatBradley [sug]") {
 
   compare_images(get_expected_s(), test_s);
   compare_images(expected_sug_s_c, test_s_c);
-  // compare_images(test_out, expected_sug_bradley_out);
+  compare_images(test_out, expected_sug_bradley_out);
 }
 
 TEST_CASE("ComputeSatFuzzy [sug]") {
